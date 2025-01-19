@@ -304,126 +304,78 @@
       }
       /* Category Style start */
       /* Carousel container */
-      .category-carousel {
-        background: linear-gradient(45deg, #ff6b00, #ff8533) !important;
-        padding: 10px 0;
-        width: 100%;
+      .nav-section {
+        background: linear-gradient(90deg, #000000, #ff6b01, #000000);
+        padding: 15px 0;
       }
 
-      /* Category item styling */
-      .category-item {
+      .nav-item {
         text-align: center;
-        padding: 10px 5px;
+        padding: 10px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .nav-item:hover {
+        transform: scale(1.1);
+      }
+
+      .nav-item.active .nav-icon {
+        background: #ff6b01;
+      }
+
+      .nav-icon {
+        background: #000;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 80px;
-        transition: all 0.3s;
-        position: relative;
-      }
-
-      /* Active/Hover state */
-      .category-item.active,
-      .category-item:hover {
-        background: rgba(0, 0, 0, 0.3);
-      }
-
-      /* Icon styling */
-      .category-item i {
-        font-size: 28px;
-        margin-bottom: 8px;
-        color: black;
-      }
-
-      /* Text styling */
-      .category-item div {
-        font-size: 14px;
-        font-weight: 500;
+        margin: 0 auto;
+        transition: background 0.3s;
         color: white;
       }
 
-      /* Responsive Design */
-      /* Extra Large Devices (Large Desktops) */
-      @media (min-width: 1200px) {
-        .category-item {
-          min-height: 90px;
-        }
-        .category-item i {
-          font-size: 32px;
-        }
-        .category-item div {
-          font-size: 16px;
-        }
+      .nav-icon i {
+        font-size: 24px;
       }
 
-      /* Large Devices (Desktops) */
-      @media (min-width: 992px) and (max-width: 1199px) {
-        .category-item {
-          min-height: 80px;
-        }
-        .category-item i {
-          font-size: 28px;
-        }
+      .nav-text {
+        color: white;
+        margin-top: 8px;
+        font-size: 14px;
       }
 
-      /* Medium Devices (Tablets) */
-      @media (min-width: 768px) and (max-width: 991px) {
-        .category-item {
-          min-height: 70px;
-        }
-        .category-item i {
-          font-size: 24px;
-          margin-bottom: 6px;
-        }
-        .category-item div {
-          font-size: 13px;
-        }
+      .grid-section {
+        background: #1a1a1a;
+        padding: 20px 0;
+        min-height: 300px;
       }
 
-      /* Small Devices (Landscape Phones) */
-      @media (min-width: 576px) and (max-width: 767px) {
-        .category-item {
-          min-height: 65px;
-          padding: 8px 3px;
-        }
-        .category-item i {
-          font-size: 22px;
-          margin-bottom: 5px;
-        }
-        .category-item div {
-          font-size: 12px;
-        }
-      }
-
-      /* Extra Small Devices (Portrait Phones) */
-      @media (max-width: 575px) {
-        .category-item {
-          min-height: 60px;
-          padding: 6px 2px;
-        }
-        .category-item i {
-          font-size: 20px;
-          margin-bottom: 4px;
-        }
-        .category-item div {
-          font-size: 11px;
-        }
-      }
-
-      /* Hide carousel navigation */
-      .category-carousel .owl-nav {
-        display: none;
-      }
-      /* Category Style end */
-
-      /* Sports Section */
-      .sports-item {
-        background-color: #3a2410;
+      .grid-item {
+        background: #2a2a2a;
+        border-radius: 8px;
         padding: 20px;
-        border-radius: 10px;
-        text-align: center;
         margin: 10px;
+        text-align: center;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .grid-item:hover {
+        background: #3a3a3a;
+        transform: translateY(-5px);
+      }
+
+      .grid-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
       }
 
       /* Favorites Section */
@@ -532,6 +484,7 @@
         cursor: pointer;
         position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
         white-space: nowrap;
       }
@@ -1215,7 +1168,7 @@
       </div>
       <!---------------------------------------------- modals end ------------------------------>
     </div>
-  <!-- Header end -->
+    <!-- Header end -->
     <!-- Main Content -->
     <div class="main-content">
       <!---------------------- Slider start ------------------------------------>
@@ -1234,82 +1187,19 @@
       <!---------------------- Slider end -------------------------------------->
 
       <!--------------------- Categories Section start--------------------------->
-      <section class="category">
-        <div class="d-flex mt-3 align-items-center">
-          <img
-            src="images/index-announcement-icon.png"
-            alt="index-announcement-icon"
-          /><marquee behavior="" direction=""
-            >Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard
-            dummy</marquee
-          >
+      <div class="nav-section">
+        <div class="container">
+          <div class="row justify-content-center" id="navItems">
+            <!-- Navigation items will be inserted here by JavaScript -->
+          </div>
         </div>
-        <div
-          class="owl-carousel category-carousel"
-          style="
-            background: linear-gradient(45deg, #ff6b00, #ff8533);
-            padding: 2px 0;
-          "
-        >
-          <div class="category-item">
-            <i class="fas fa-futbol"></i>
-            <div>Sports</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-dice"></i>
-            <div>Casino</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-dice"></i>
+      </div>
 
-            <div>Slots</div>
+      <div class="grid-section">
+        <div class="container">
+          <div class="row" id="gridItems">
+            <!-- Grid items will be inserted here by JavaScript -->
           </div>
-          <div class="category-item">
-            <i class="fas fa-table"></i>
-            <div>Table</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-chart-line"></i>
-            <div>Crash</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-ticket"></i>
-            <div>Lottery</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-fish"></i>
-            <div>Fishing</div>
-          </div>
-          <div class="category-item">
-            <i class="fas fa-gamepad"></i>
-            <div>Arcade</div>
-          </div>
-        </div>
-      </section>
-      <!--------------------- Categories Section end--------------------------->
-      <!-- Sports Section -->
-      <h6 class="section-title">Sports</h6>
-      <div class="owl-carousel sports-carousel">
-        <div class="sports-item">
-          <i class="fas fa-cricket-bat-ball"></i>
-          <div>CRICKET</div>
-        </div>
-        <div class="sports-item">
-          <i class="fas fa-football-ball"></i>
-          <div>Sportsbook</div>
-        </div>
-        <div class="sports-item">
-          <i class="fas fa-running"></i>
-          <div>SBO</div>
-        </div>
-        <div class="sports-item">
-          <i class="fas fa-horse-head"></i>
-          <div>HORSEBOOK</div>
-        </div>
-        <div class="sports-item">
-          <i class="fas fa-chart-bar"></i>
-          <div>iNsports</div>
         </div>
       </div>
 
@@ -1561,48 +1451,6 @@
           },
         });
 
-        $(".category-carousel").owlCarousel({
-          loop: true,
-          margin: 0,
-          nav: false,
-          dots: false,
-          responsive: {
-            0: {
-              items: 3, // For smallest phones
-            },
-            400: {
-              items: 4, // For larger phones
-            },
-            576: {
-              items: 5, // For landscape phones
-            },
-            768: {
-              items: 6, // For tablets
-            },
-            992: {
-              items: 7, // For small desktops
-            },
-            1200: {
-              items: 8, // For large desktops
-            },
-          },
-          autoWidth: false,
-          touchDrag: true,
-          mouseDrag: true,
-          autoplay: false,
-        });
-
-        $(".sports-carousel").owlCarousel({
-          loop: true,
-          margin: 10,
-          nav: true,
-          responsive: {
-            0: { items: 2 },
-            600: { items: 3 },
-            1000: { items: 5 },
-          },
-        });
-
         $(".favorites-carousel").owlCarousel({
           loop: true,
           margin: 10,
@@ -1712,6 +1560,151 @@
           });
           // Add your actual login/signup logic here.  This is just for showing/hiding modals.
         });
+      });
+      const navData = {
+        sports: {
+          icon: "fas fa-football-ball",
+          text: "Sports",
+          children: [
+            { name: "Sports Provider 1", logo: "fas fa-trophy" },
+            { name: "Sports Provider 2", logo: "fas fa-basketball-ball" },
+            { name: "Sports Provider 3", logo: "fas fa-football-ball" },
+            { name: "Sports Provider 4", logo: "fas fa-baseball-ball" },
+          ],
+        },
+        casino: {
+          icon: "fas fa-dice",
+          text: "Casino",
+          children: [
+            { name: "Casino Game 1", logo: "fas fa-dice" },
+            { name: "Casino Game 2", logo: "fas fa-dice-d20" },
+            { name: "Casino Game 3", logo: "fas fa-dice-d6" },
+            { name: "Casino Game 4", logo: "fas fa-dice-five" },
+          ],
+        },
+        slots: {
+          icon: "fa-solid fa-circle-dollar-to-slot",
+          text: "Slots",
+          children: [
+            {
+              name: "Slot Provider 1",
+              logo: "fa-solid fa-circle-dollar-to-slot",
+            },
+            { name: "Slot Provider 2", logo: "fas fa-gem" },
+            { name: "Slot Provider 3", logo: "fas fa-coins" },
+            { name: "Slot Provider 4", logo: "fas fa-dollar-sign" },
+          ],
+        },
+        table: {
+          icon: "fas fa-table",
+          text: "Table",
+          children: [
+            { name: "Table Game 1", logo: "fas fa-table" },
+            { name: "Table Game 2", logo: "fas fa-heart" },
+            { name: "Table Game 3", logo: "fas fa-club" },
+            { name: "Table Game 4", logo: "fas fa-spade" },
+          ],
+        },
+        crash: {
+          icon: "fas fa-chart-line",
+          text: "Crash",
+          children: [
+            { name: "Crash Game 1", logo: "fas fa-chart-line" },
+            { name: "Crash Game 2", logo: "fas fa-rocket" },
+            { name: "Crash Game 3", logo: "fas fa-bomb" },
+            { name: "Crash Game 4", logo: "fas fa-chart-bar" },
+          ],
+        },
+        lottery: {
+          icon: "fas fa-ticket-alt",
+          text: "Lottery",
+          children: [
+            { name: "Lottery Game 1", logo: "fas fa-ticket-alt" },
+            { name: "Lottery Game 2", logo: "fas fa-star" },
+            { name: "Lottery Game 3", logo: "fas fa-gift" },
+            { name: "Lottery Game 4", logo: "fas fa-crown" },
+          ],
+        },
+        fishing: {
+          icon: "fas fa-fish",
+          text: "Fishing",
+          children: [
+            { name: "Fishing Game 1", logo: "fas fa-fish" },
+            { name: "Fishing Game 2", logo: "fas fa-water" },
+            { name: "Fishing Game 3", logo: "fas fa-ship" },
+            { name: "Fishing Game 4", logo: "fas fa-anchor" },
+          ],
+        },
+        arcade: {
+          icon: "fas fa-gamepad",
+          text: "Arcade",
+          children: [
+            { name: "Arcade Game 1", logo: "fas fa-gamepad" },
+            { name: "Arcade Game 2", logo: "fas fa-ghost" },
+            { name: "Arcade Game 3", logo: "fas fa-robot" },
+            { name: "Arcade Game 4", logo: "fas fa-puzzle-piece" },
+          ],
+        },
+      };
+
+      // Render navigation items
+      function renderNavItems() {
+        const navContainer = document.getElementById("navItems");
+        Object.entries(navData).forEach(([key, item]) => {
+          const div = document.createElement("div");
+          div.className = "col-3 col-md-auto nav-item";
+          div.setAttribute("data-category", key);
+          div.innerHTML = `
+                    <div class="nav-icon">
+                        <i class="${item.icon}"></i>
+                    </div>
+                    <div class="nav-text">${item.text}</div>
+                `;
+          div.addEventListener("click", () => handleNavClick(key));
+          navContainer.appendChild(div);
+        });
+      }
+
+      // Handle navigation item click
+      function handleNavClick(category) {
+        // Update active state
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.classList.remove("active");
+          if (item.getAttribute("data-category") === category) {
+            item.classList.add("active");
+          }
+        });
+
+        // Update grid items
+        const children = navData[category].children;
+        updateGridItems(children);
+      }
+
+      // Update grid items
+      function updateGridItems(items) {
+        const gridContainer = document.getElementById("gridItems");
+        gridContainer.innerHTML = ""; // Clear existing items
+
+        items.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "col-6 col-md-4 col-lg-3";
+          div.innerHTML = `
+                    <div class="grid-item">
+                        <div class="grid-logo">
+                            <i class="${item.logo}"></i>
+                        </div>
+                        <h5>${item.name}</h5>
+                    </div>
+                `;
+          gridContainer.appendChild(div);
+        });
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", () => {
+        renderNavItems();
+        // Show initial category (Sports)
+        handleNavClick("sports");
       });
     </script>
   </body>
