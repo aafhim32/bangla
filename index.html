@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BengalBet</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --sidebar-width: 250px;
+        --sidebar-collapsed-width: 70px;
+        --primary-color: #ff6b00;
+        --secondary-color: #2c2c2c;
+        --text-color: #ffffff;
+      }
+
+      body {
+        background-color: #1a1a1a;
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: var(--sidebar-width);
+        background-color: var(--secondary-color);
+        transition: all 0.3s;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .main-menu {
+        flex-shrink: 0;
+      }
+
+      .submenu-container {
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+      }
+
+      .submenu-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
+
+      .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar-menu li {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.5s;
+        color: #9a9a9a;
+      }
+
+      .sidebar-menu li:hover {
+        background-color: rgba(255, 107, 0, 0.1);
+        color: #ffffff;
+      }
+
+      .sidebar-menu .menu-icon {
+        margin-left: 1px;
+        margin-right: 1px;
+        text-align: center;
+        transition: all 0.3s;
+        color: #9a9a9a;
+      }
+
+      .sidebar-menu .rc {
+        display: block;
+        margin-left: auto;
+      }
+
+      .sidebar-menu li:hover .menu-icon {
+        color: #ffffff;
+      }
+
+      .menu-text {
+        display: block;
+        margin-left: 12px;
+        margin-right: 1px;
+        transition: all 0.3s;
+        color: #9a9a9a;
+      }
+
+      .sidebar-menu li:hover .menu-text {
+        color: #ffffff;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      /* Main Content Styles */
+      .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 0 10px;
+        transition: all 0.3s;
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed-width);
+      }
+
+      /* Header Styles */
+      .header {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: var(--dark);
+      }
+
+      .header-logo {
+        height: 50px;
+        margin-right: auto;
+      }
+
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .auth-buttons button {
+        background-color: var(--primary-color);
+        border: none;
+        color: var(--text-color);
+        padding: 8px 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .auth-buttons button:hover {
+        background-color: #ff8533;
+      }
+
+      .login-btn {
+        background-color: #ff6b00 !important;
+      }
+
+      .signup-btn {
+        background-color: #1e1e1e !important;
+        box-shadow: #1e1e1e;
+      }
+
+      .country-btn {
+        padding: 8px 15px !important;
+        background-color: transparent !important;
+        border: 1px solid #ff6b00;
+      }
+
+      /* Main slider style*/
+      /* Main slider container */
+      .owl-carousel.main-slider {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        overflow: hidden;
+        height: auto;
+      }
+
+      /* Stage container */
+      .owl-carousel .owl-stage-outer,
+      .owl-carousel .owl-stage,
+      .owl-carousel .owl-item {
+        height: auto;
+      }
+
+      /* Item container */
+      .owl-carousel .owl-item .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Base image styling */
+      .owl-carousel .owl-item .item img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 13px;
+        padding: 5px 3px;
+        margin: 0;
+      }
+
+      /* Responsive heights for all devices */
+      /* Mobile devices */
+      @media screen and (max-width: 480px) {
+        .owl-carousel .owl-item .item img {
+          height: 150px;
+        }
+      }
+
+      /* Tablets */
+      @media screen and (min-width: 481px) and (max-width: 768px) {
+        .owl-carousel .owl-item .item img {
+          height: 200px;
+        }
+      }
+
+      /* Small desktops */
+      @media screen and (min-width: 769px) and (max-width: 1199px) {
+        .owl-carousel .owl-item .item img {
+          height: 280px;
+        }
+      }
+
+      /* Regular desktops */
+      @media screen and (min-width: 1200px) and (max-width: 1599px) {
+        .owl-carousel .owl-item .item img {
+          height: 320px;
+        }
+      }
+
+      /* Large desktops */
+      @media screen and (min-width: 1600px) {
+        .owl-carousel .owl-item .item img {
+          height: 380px;
+          max-width: 1920px;
+          margin: 0 auto;
+        }
+      }
+      /* Custom styling only for banner slider dots */
+      .banner-slider .owl-dots {
+        position: relative;
+        text-align: center;
+        margin-top: -30px;
+        z-index: 10;
+      }
+
+      .banner-slider .owl-dot {
+        display: inline-block;
+        margin: 0 5px;
+      }
+
+      .banner-slider .owl-dot span {
+        width: 30px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.5);
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      .banner-slider .owl-dot.active span {
+        background: #fff;
+        width: 30px;
+      }
+      /* Category Style start */
+      /* Carousel container */
+      .category-carousel {
+        background: linear-gradient(45deg, #ff6b00, #ff8533) !important;
+        padding: 10px 0;
+        width: 100%;
+      }
+
+      /* Category item styling */
+      .category-item {
+        text-align: center;
+        padding: 10px 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80px;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      /* Active/Hover state */
+      .category-item.active,
+      .category-item:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      /* Icon styling */
+      .category-item i {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: black;
+      }
+
+      /* Text styling */
+      .category-item div {
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+      }
+
+      /* Responsive Design */
+      /* Extra Large Devices (Large Desktops) */
+      @media (min-width: 1200px) {
+        .category-item {
+          min-height: 90px;
+        }
+        .category-item i {
+          font-size: 32px;
+        }
+        .category-item div {
+          font-size: 16px;
+        }
+      }
+
+      /* Large Devices (Desktops) */
+      @media (min-width: 992px) and (max-width: 1199px) {
+        .category-item {
+          min-height: 80px;
+        }
+        .category-item i {
+          font-size: 28px;
+        }
+      }
+
+      /* Medium Devices (Tablets) */
+      @media (min-width: 768px) and (max-width: 991px) {
+        .category-item {
+          min-height: 70px;
+        }
+        .category-item i {
+          font-size: 24px;
+          margin-bottom: 6px;
+        }
+        .category-item div {
+          font-size: 13px;
+        }
+      }
+
+      /* Small Devices (Landscape Phones) */
+      @media (min-width: 576px) and (max-width: 767px) {
+        .category-item {
+          min-height: 65px;
+          padding: 8px 3px;
+        }
+        .category-item i {
+          font-size: 22px;
+          margin-bottom: 5px;
+        }
+        .category-item div {
+          font-size: 12px;
+        }
+      }
+
+      /* Extra Small Devices (Portrait Phones) */
+      @media (max-width: 575px) {
+        .category-item {
+          min-height: 60px;
+          padding: 6px 2px;
+        }
+        .category-item i {
+          font-size: 20px;
+          margin-bottom: 4px;
+        }
+        .category-item div {
+          font-size: 11px;
+        }
+      }
+
+      /* Hide carousel navigation */
+      .category-carousel .owl-nav {
+        display: none;
+      }
+      /* Category Style end */
+
+      /* Sports Section */
+      .sports-item {
+        background-color: #3a2410;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 10px;
+      }
+
+      /* Favorites Section */
+      .favorites-item {
+        margin: 10px;
+      }
+
+      .favorites-item img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .featured-item {
+        margin: o 5px;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 600px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+
+        .sidebar.show {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+          padding: 0;
+          margin-top: 85px;
+        }
+
+        .auth-buttons {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          padding: 10px;
+          background-color: var(--secondary-color);
+          z-index: 900;
+        }
+
+        .mobile-menu-button {
+          display: block !important;
+        }
+      }
+
+      .mobile-menu-button {
+        display: none;
+      }
+
+      /* Carousel Styles */
+
+      .section-title {
+        color: var(--primary-color);
+
+        font-weight: bold;
+      }
+
+      :root {
+        --primary: #ff6b00;
+        --secondary: #1e1e1e;
+        --dark: #0a0a0a;
+        --accent: #ffd700;
+        --gradient: linear-gradient(135deg, #ff6b00, #ff8f00);
+      }
+
+      body {
+        background: var(--dark);
+        color: white;
+        font-family: "Segoe UI", Arial, sans-serif;
+        overflow-x: hidden;
+      }
+
+      .side-menu {
+        background: linear-gradient(
+          180deg,
+          var(--secondary) 0%,
+          rgba(30, 30, 30, 0.95) 100%
+        );
+        width: 80px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        padding-top: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .side-menu:hover,
+      .side-menu.expanded {
+        width: 280px;
+      }
+
+      .nav-item {
+        padding: 15px;
+        color: #ffffff90;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .nav-item i {
+        width: 50px;
+        text-align: center;
+        font-size: 1.2em;
+      }
+
+      .nav-item span {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .side-menu:hover .nav-item span,
+      .side-menu.expanded .nav-item span {
+        opacity: 1;
+      }
+
+      .nav-item .arrow {
+        margin-left: auto;
+        transition: transform 0.3s ease;
+        opacity: 0;
+      }
+
+      .side-menu:hover .nav-item .arrow,
+      .side-menu.expanded .nav-item .arrow {
+        opacity: 1;
+      }
+
+      .nav-item.active .arrow {
+        transform: rotate(90deg);
+      }
+
+      .submenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .submenu.active {
+        max-height: 500px;
+      }
+
+      .submenu .nav-item {
+        padding-left: 65px;
+      }
+
+      .side-menu:hover .submenu .nav-item,
+      .side-menu.expanded .submenu .nav-item {
+        padding-left: 65px;
+      }
+
+      /* Replace your existing menu-toggle styles with this */
+      .menu-toggle {
+        all: unset;
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      /* Add this new style */
+      body.modal-open .menu-toggle {
+        display: none !important;
+      }
+      .menu-toggle i.fas.fa-bars {
+        color: var(
+          --gradient
+        ); /* Use color instead of background for the icon */
+        /* OR if you want to use background with gradient */
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .main-content {
+        margin-left: 80px;
+        margin-top: 5rem;
+        padding: 0 10px;
+        min-height: 100vh;
+        background: radial-gradient(
+          circle at top right,
+          #1a1a1a 0%,
+          var(--dark) 100%
+        );
+        transition: margin-left 0.3s ease;
+      }
+
+      .side-menu:hover + .main-content,
+      .side-menu.expanded + .main-content {
+        margin-left: 280px;
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          margin: 4rem 0.2rem;
+          padding: 0.3rem;
+        }
+        .menu-toggle {
+          display: block;
+          z-index: 1001 !important;
+        }
+
+        .side-menu {
+          transform: translateX(-100%);
+          width: 280px;
+        }
+
+        .side-menu.active {
+          transform: translateX(0);
+        }
+
+        .side-menu .nav-item span,
+        .side-menu .nav-item .arrow {
+          opacity: 1;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .side-menu:hover + .main-content,
+        .side-menu.expanded + .main-content {
+          margin-left: 0;
+        }
+
+        .menu-overlay.active {
+          display: block;
+          opacity: 1;
+        }
+      }
+      /* modal */
+      .modal {
+        background: url("your_background_image.jpg") no-repeat center center
+          fixed;
+        background-size: cover;
+        font-family: sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        z-index: 1002;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 2000;
+      }
+
+      .modal-content {
+        background-color: #000000;
+        margin: 15% auto;
+
+        border: 1px solid #ccc;
+        width: 390px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        color: white;
+      }
+
+      .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      img {
+        display: block;
+        margin: 0 auto 10px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #333;
+        border: 1px solid #555;
+        color: white;
+        border-radius: 3px;
+      }
+
+      button {
+        background-color: orange;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+
+      a {
+        color: orange;
+        text-decoration: none;
+      }
+      /* payment method style */
+      .payment-responsible {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+      .payment-responsible img {
+        height: 1.5rem;
+        margin: 10px;
+        opacity: 0.3;
+      }
+      /* footer one style */
+      .footer-links .footer-link {
+        color: var(--primary-color);
+      }
+      @media (max-width: 768px) {
+        .footer-links {
+          display: grid;
+          grid-template-columns: repeat(2, 2fr);
+          font-size: 14px;
+        }
+      }
+
+      .partnerInfo {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .partnerInfo img {
+        height: 40px;
+      }
+      /* chat button */
+
+      .content-text {
+        font-size: 14px;
+      }
+
+      .modal-dark {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #000000;
+        color: white;
+        max-width: 400px;
+        margin: auto;
+        width: 375px !important; /* Add fixed width */
+        background-color: #000000; /* Darker background */
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #333;
+        padding: 0.75rem 1rem;
+        background-color: #1a1a1a;
+      }
+
+      .modal-header .close {
+        color: #999;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+
+      .modal-header h6 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: white;
+      }
+
+      .form-control {
+        background-color: #333;
+        border: 1px solid #444;
+        color: white;
+        padding: 0.5rem 0.75rem;
+      }
+
+      .form-control::placeholder {
+        color: #999;
+      }
+
+      .form-control:focus {
+        background-color: #333;
+        border-color: #666;
+        color: white;
+        box-shadow: none;
+      }
+
+      .phone-input-group {
+        display: flex;
+      }
+
+      .phone-prefix {
+        background-color: #333;
+        border: 1px solid #444;
+        color: white;
+        padding: 0.2rem;
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+        display: flex;
+        height: 2.9rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .phone-input {
+        border-radius: 0 4px 4px 0;
+      }
+
+      .verification-code {
+        display: flex;
+        gap: 5px;
+      }
+
+      .refresh-btn {
+        background-color: #333;
+        border: 1px solid #444;
+        color: #999;
+        padding: 0.5rem;
+        border-radius: 4px;
+        height: 2.9rem;
+      }
+
+      .submit-btn {
+        background-color: #ff6b01;
+        border: none;
+        color: white;
+        padding: 0.75rem;
+        width: 100%;
+        border-radius: 4px;
+      }
+
+      .link-orange {
+        color: #ff6b01;
+        text-decoration: none;
+      }
+
+      .link-orange:hover {
+        text-decoration: underline;
+        color: #ff6b01;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="menu-overlay"></div>
+
+    <div class="side-menu">
+      <div class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </div>
+
+      <div class="nav-item">
+        <i class="fas fa-futbol"></i>
+        <span>Sports</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="submenu">
+        <div class="nav-item">
+          <img
+            src="images/icon-exchange.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          />
+          <span>Cricket</span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>Sportsbook</span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>SBO</span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>Horsebook</span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>iNsport </span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>BTi</span>
+        </div>
+        <div class="nav-item">
+          <img
+            src="images/icon-sportbook.png"
+            alt="icon"
+            style="height: 20px; width: 20px; margin-right: 8px"
+          /><span>CMD</span>
+        </div>
+      </div>
+
+      <div class="submenu">
+        <div class="nav-item">
+          <span>Slots</span>
+        </div>
+        <div class="nav-item">
+          <span>Poker</span>
+        </div>
+        <div class="nav-item">
+          <span>Roulette</span>
+        </div>
+        <div class="nav-item">
+          <span>Blackjack</span>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <i class="fas fa-trophy"></i>
+        <span>Live Games</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="submenu">
+        <div class="nav-item">
+          <span>Live Casino</span>
+        </div>
+        <div class="nav-item">
+          <span>Live Sports</span>
+        </div>
+        <div class="nav-item">
+          <span>Virtual Sports</span>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <i class="fas fa-wallet"></i>
+        <span>Wallet</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="submenu">
+        <div class="nav-item">
+          <span>Deposit</span>
+        </div>
+        <div class="nav-item">
+          <span>Withdraw</span>
+        </div>
+        <div class="nav-item">
+          <span>History</span>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="submenu">
+        <div class="nav-item">
+          <span>Settings</span>
+        </div>
+        <div class="nav-item">
+          <span>Security</span>
+        </div>
+        <div class="nav-item">
+          <span>Logout</span>
+        </div>
+      </div>
+    </div>
+    <!-- Header -->
+    <div class="header">
+      <!-- <button class="mobile-menu-button btn text-white">
+            <i class="fas fa-bars"></i>
+        </button> -->
+      <img src="images/logo2.png" alt="BengalBet" class="header-logo" />
+      <div class="auth-buttons">
+        <button class="login-btn" id="openLoginModal">Login</button>
+        <button class="signup-btn" id="openSignupModal">Sign up</button>
+        <button class="country-btn">🇧🇩</button>
+      </div>
+      <!---------------------------- modals start login and sign up------------------------------ -->
+      <div class="modal modal-dark" id="loginModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header justify-content-center position-relative">
+              <button type="button" class="close position-absolute end-0 me-3">
+                &times;
+              </button>
+              <h6>Login</h6>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body p-4">
+              <!-- Logo -->
+              <div class="text-center mb-4">
+                <img src="images/logo2.png" alt="BengalBet Logo" height="48" />
+              </div>
+
+              <!-- Form -->
+              <form>
+                <!-- Username -->
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    id="loginUsername"
+                  />
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Password"
+                    id="loginPassword"
+                  />
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="submit-btn mb-3">Login</button>
+
+                <!-- Footer Text -->
+                <div class="text-center text-secondary small">
+                  <p class="mb-2">
+                    <a href="#" class="link-orange">Forgot password?</a>
+                  </p>
+                  <p>
+                    Do not have an account?
+                    <a href="#" id="goToSignup" class="link-orange">Sign Up</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal modal-dark" id="signupModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header justify-content-center position-relative">
+              <button type="button" class="close position-absolute end-0 me-3">
+                &times;
+              </button>
+              <h6>Sign up</h6>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body p-4">
+              <!-- Logo -->
+              <div class="text-center mb-4">
+                <img src="images/logo2.png" alt="BengalBet Logo" height="48" />
+              </div>
+
+              <!-- Form -->
+              <form>
+                <!-- Username -->
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="4-15 char, allow number"
+                  />
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="6-20 Characters and Numbers"
+                  />
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                  <label class="form-label">Phone Number</label>
+                  <div class="phone-input-group">
+                    <span class="phone-prefix"
+                      ><span>🇧🇩</span> <span>+880</span></span
+                    >
+                    <input
+                      type="tel"
+                      class="form-control phone-input"
+                      placeholder="Phone Number"
+                    />
+                  </div>
+                </div>
+
+                <!-- Verification -->
+                <div class="mb-4">
+                  <label class="form-label">Verification Code</label>
+                  <div class="verification-code">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter 4 digit code"
+                    />
+                    <button type="button" class="refresh-btn">⟳</button>
+                  </div>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="submit-btn mb-3">Submit</button>
+
+                <!-- Footer Text -->
+                <div class="text-center text-secondary small">
+                  <p>
+                    Already a member? <a href="#" class="link-orange">Log in</a>
+                  </p>
+                  <p>
+                    I certify that I am at least 18 years old and that I agree
+                    to the
+                    <a href="#" class="link-orange">Terms & Conditions</a>.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---------------------------------------------- modals end ------------------------------>
+    </div>
+  <!-- Header end -->
+    <!-- Main Content -->
+    <div class="main-content">
+      <!---------------------- Slider start ------------------------------------>
+
+      <section class="owl-carousel main-slider banner-slider">
+        <div class="item">
+          <img src="images/image_155351.jpg" alt="Slide 1" />
+        </div>
+        <div class="item">
+          <img src="images/image_202415.jpg" alt="Slide 2" />
+        </div>
+        <div class="item">
+          <img src="images/image_203748.jpg" alt="Slide 3" />
+        </div>
+      </section>
+      <!---------------------- Slider end -------------------------------------->
+
+      <!--------------------- Categories Section start--------------------------->
+      <section class="category">
+        <div class="d-flex mt-3 align-items-center">
+          <img
+            src="images/index-announcement-icon.png"
+            alt="index-announcement-icon"
+          /><marquee behavior="" direction=""
+            >Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard
+            dummy</marquee
+          >
+        </div>
+        <div
+          class="owl-carousel category-carousel"
+          style="
+            background: linear-gradient(45deg, #ff6b00, #ff8533);
+            padding: 2px 0;
+          "
+        >
+          <div class="category-item">
+            <i class="fas fa-futbol"></i>
+            <div>Sports</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-dice"></i>
+            <div>Casino</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-dice"></i>
+
+            <div>Slots</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-table"></i>
+            <div>Table</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-chart-line"></i>
+            <div>Crash</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-ticket"></i>
+            <div>Lottery</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-fish"></i>
+            <div>Fishing</div>
+          </div>
+          <div class="category-item">
+            <i class="fas fa-gamepad"></i>
+            <div>Arcade</div>
+          </div>
+        </div>
+      </section>
+      <!--------------------- Categories Section end--------------------------->
+      <!-- Sports Section -->
+      <h6 class="section-title">Sports</h6>
+      <div class="owl-carousel sports-carousel">
+        <div class="sports-item">
+          <i class="fas fa-cricket-bat-ball"></i>
+          <div>CRICKET</div>
+        </div>
+        <div class="sports-item">
+          <i class="fas fa-football-ball"></i>
+          <div>Sportsbook</div>
+        </div>
+        <div class="sports-item">
+          <i class="fas fa-running"></i>
+          <div>SBO</div>
+        </div>
+        <div class="sports-item">
+          <i class="fas fa-horse-head"></i>
+          <div>HORSEBOOK</div>
+        </div>
+        <div class="sports-item">
+          <i class="fas fa-chart-bar"></i>
+          <div>iNsports</div>
+        </div>
+      </div>
+
+      <!-- Favorites Section start -->
+
+      <h6 class="section-title">Favourites</h6>
+      <div class="owl-carousel favorites-carousel">
+        <div class="favorites-item">
+          <img src="images/image_1.jpg" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/image_2.jpg" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/image_3.jpg" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/bn_nz.jpg" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/nz_eng.jpg" alt="Favorite 2" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/sa_pak.jpg" alt="Favorite 3" />
+        </div>
+      </div>
+      <!-- Favorites Section end -->
+      <!-- Featured game Section start -->
+      <h6 class="section-title">Featured Games</h6>
+      <div class="owl-carousel featured-carousel">
+        <div class="favorites-item">
+          <img src="images/JILI-SLOT-014.png" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/JILI-SLOT-023.png" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/JILI-SLOT-027.png" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/124.png" alt="Favorite 1" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/1340277.png" alt="Favorite 2" />
+        </div>
+        <div class="favorites-item">
+          <img src="images/89.png" alt="Favorite 3" />
+        </div>
+      </div>
+      <!-- Featured game Section End -->
+      <!-------------------------Payment Method section Start  -------------->
+      <section>
+        <div>
+          <h6 class="section-title">Payment Methods</h6>
+          <div class="payment-responsible">
+            <img src="images/bank.png" alt="" />
+            <img src="images/bkash.png" alt="" />
+            <img src="images/rocket.png" alt="" />
+            <img src="images/nagad.png" alt="" />
+            <img src="images/crypto.png" alt="" />
+            <img src="images/upai.png" alt="" />
+            <img src="images/wallet.png" alt="" />
+            <img src="images/surecash.png" alt="" />
+            <img src="images/tap.png" alt="" />
+          </div>
+        </div>
+      </section>
+      <!-------------------------Payment Method section End  -------------->
+      <!-- ----------------------responsible gaming section start -->
+      <section>
+        <div>
+          <h6 class="section-title">Responsible Gaming</h6>
+          <div class="payment-responsible">
+            <img src="images/gamcare.png" alt="" />
+            <img src="images/age-limit.png" alt="" />
+            <img src="images/regulation.png" alt="" />
+          </div>
+        </div>
+      </section>
+      <!-- ----------------------responsible gaming section end -->
+      <!-- footer 1 start -->
+      <hr />
+      <footer>
+        <div class="footer-links">
+          <span
+            ><a href="#" class="footer-link">Affiliates Program</a>
+            <span class="separator">|</span></span
+          >
+          <span
+            ><a href="#" class="footer-link">Responsible Gaming</a>
+            <span class="separator">|</span></span
+          >
+          <span
+            ><a href="#" class="footer-link">About Us</a>
+            <span class="separator">|</span></span
+          >
+          <span
+            ><a href="#" class="footer-link">Security</a>
+            <span class="separator">|</span></span
+          >
+          <span
+            ><a href="#" class="footer-link">Privacy Policy</a>
+            <span class="separator">|</span></span
+          >
+          <span
+            ><a href="#" class="footer-link"
+              >Frequently Asked Questions</a
+            ></span
+          >
+        </div>
+      </footer>
+      <hr />
+      <!-- footer 1 end-->
+      <!-- footer 2 start -->
+      <footer class="partnerInfo">
+        <div>
+          <h2 class="section-title fs-6">Gaming License</h2>
+          <img src="images/gamingLicense.png" alt="" />
+        </div>
+        <div>
+          <h2 class="section-title fs-6">Official Brand Partner</h2>
+          <img src="images/newCity.png" alt="" />
+        </div>
+      </footer>
+      <hr />
+      <!-- footer 2 end -->
+      <!-- footer 3 start ->
+          <div class="container py-4">
+        <!-- Header -->
+      <div class="d-flex align-items-start flex-column mb-3">
+        <div class="d-flex align-items-center">
+          <img
+            src="images/logo2.png"
+            alt="BGB Logo"
+            class="logo me-3"
+            style="height: 2rem"
+          />
+          <span class="header-text" style="color: var(--primary-color)"
+            >Best Quality Platform</span
+          >
+        </div>
+        <small class="text-light"
+          >© 2025 BGB Copyrights. All Rights Reserved</small
+        >
+      </div>
+
+      <!-- Main Content -->
+      <h1 class="section-title" style="font-size: 1rem">
+        Bengalbet – Bangladesh's Top Choice for Betting & Casino
+      </h1>
+
+      <div class="content-text">
+        <p>
+          If you are still unaware of Bengalbet, you are losing out on one of
+          the greatest online casino and sports betting platforms that
+          Bangladesh has to offer right now. An Asian business that runs several
+          significant worldwide online gaming platforms owns Bengalbet. Because
+          the government of Curacao has granted the organization a license, our
+          games can be played on a secure and dependable website.
+        </p>
+
+        <p>
+          The core components of the Bengalbet online gaming experience are the
+          privacy and safety of our environment as well as the quality of our
+          products. To ensure an entirely safe and rational online gambling
+          experience, we continually assess our games and procedures and employ
+          the most advanced security measures obtainable. We preserve the
+          secrecy of all your information and we will not sell or share it with
+          outside parties unless it is necessary to comply with our privacy
+          policy.
+        </p>
+
+        <p>
+          Bengalbet boasts thousands of daily users, and if there is one thing
+          that is added to its admiration, it is its bonuses and promotions,
+          which offer fantastic chances to both new and returning clients.
+        </p>
+
+        <p>
+          For sports betting, Bengalbet sportsbook offers a fantastic selection
+          of nearly 20 sports, with football, tennis, basketball, volleyball,
+          and many more standing out among them. Naturally, as we are in the
+          year of major contests like the BPL and T20, we will be able to use
+          our predictions to watch the national teams of each nation compete in
+          these international championships.
+        </p>
+
+        <p>
+          Yet, when it comes to the casino collection, this website caters
+          hundreds of games from some of the topmost creators in the business,
+          like Microgaming, NetEnt, iSoftbet, and others. There are many diverse
+          kinds of slots, some with huge payouts, along with table games, Live
+          Roulette, Poker, Blackjack, and other games.
+        </p>
+
+        <p>
+          Finally, Bengalbet offers numerous promos for every component of its
+          website, as can be observed by visiting that page. We may therefore
+          assert that this is one of the pages with the highest quantity and
+          caliber of offers. It is advised that you frequently check the
+          promotions section because it is updated and changes frequently.
+        </p>
+      </div>
+    </div>
+    <!-- footer 3 end -->
+
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Sticky Category Section
+        const categorySection = $(".category-section");
+        const categorySectionTop = categorySection.length
+          ? categorySection.offset().top
+          : 0;
+
+        $(window).scroll(function () {
+          if ($(window).scrollTop() >= categorySectionTop) {
+            categorySection.addClass("sticky");
+            $("body").css("padding-top", categorySection.outerHeight());
+          } else {
+            categorySection.removeClass("sticky");
+            $("body").css("padding-top", 0);
+          }
+        });
+
+        // Initialize all carousels
+        $(".main-slider").owlCarousel({
+          items: 1,
+          loop: true,
+          margin: 10,
+          nav: false, // Hide default nav
+          dots: true, // Enable dots
+          autoplay: true,
+          autoplayTimeout: 5000,
+          dotsClass: "owl-dots",
+          dotClass: "owl-dot",
+          onInitialized: function (event) {
+            // Optional: Add custom numbering if needed
+            var totalItems = event.item.count;
+            var currentItem = event.item.index + 1;
+          },
+        });
+
+        $(".category-carousel").owlCarousel({
+          loop: true,
+          margin: 0,
+          nav: false,
+          dots: false,
+          responsive: {
+            0: {
+              items: 3, // For smallest phones
+            },
+            400: {
+              items: 4, // For larger phones
+            },
+            576: {
+              items: 5, // For landscape phones
+            },
+            768: {
+              items: 6, // For tablets
+            },
+            992: {
+              items: 7, // For small desktops
+            },
+            1200: {
+              items: 8, // For large desktops
+            },
+          },
+          autoWidth: false,
+          touchDrag: true,
+          mouseDrag: true,
+          autoplay: false,
+        });
+
+        $(".sports-carousel").owlCarousel({
+          loop: true,
+          margin: 10,
+          nav: true,
+          responsive: {
+            0: { items: 2 },
+            600: { items: 3 },
+            1000: { items: 5 },
+          },
+        });
+
+        $(".favorites-carousel").owlCarousel({
+          loop: true,
+          margin: 10,
+          nav: true,
+          responsive: {
+            0: { items: 1 },
+            600: { items: 2 },
+            1000: { items: 3 },
+          },
+        });
+
+        $(".featured-carousel").owlCarousel({
+          loop: true,
+          margin: 10,
+          nav: true,
+          responsive: {
+            0: { items: 2 },
+            600: { items: 3 },
+            1000: { items: 6 },
+          },
+        });
+
+        // Menu Toggle Functionality
+        const menuToggle = document.querySelector(".menu-toggle");
+        const sideMenu = document.querySelector(".side-menu");
+        const menuOverlay = document.querySelector(".menu-overlay");
+
+        // Handle menu toggle
+        menuToggle.addEventListener("click", () => {
+          sideMenu.classList.toggle("active");
+          menuToggle.classList.toggle("active");
+          menuOverlay.classList.toggle("active");
+
+          const icon = menuToggle.querySelector("i");
+          icon.classList.toggle("fa-bars");
+          icon.classList.toggle("fa-times");
+        });
+
+        // Handle submenu toggles
+        const menuItems = document.querySelectorAll(".nav-item");
+        menuItems.forEach((item) => {
+          if (
+            item.nextElementSibling &&
+            item.nextElementSibling.classList.contains("submenu")
+          ) {
+            item.addEventListener("click", () => {
+              item.classList.toggle("active");
+              item.nextElementSibling.classList.toggle("active");
+            });
+          }
+        });
+
+        // Close menu when clicking overlay
+        menuOverlay.addEventListener("click", () => {
+          sideMenu.classList.remove("active");
+          menuToggle.classList.remove("active");
+          menuOverlay.classList.remove("active");
+
+          const icon = menuToggle.querySelector("i");
+          icon.classList.add("fa-bars");
+          icon.classList.remove("fa-times");
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 768) {
+            sideMenu.classList.remove("active");
+            menuToggle.classList.remove("active");
+            menuOverlay.classList.remove("active");
+
+            const icon = menuToggle.querySelector("i");
+            icon.classList.add("fa-bars");
+            icon.classList.remove("fa-times");
+          }
+        });
+
+        $(document).ready(function () {
+          // Replace your existing modal JavaScript with this:
+          $("#openLoginModal").click(function () {
+            $("#loginModal").css("display", "block");
+            $("body").addClass("modal-open");
+            $(".menu-toggle").css("display", "none");
+          });
+
+          $("#openSignupModal").click(function () {
+            $("#signupModal").css("display", "block");
+            $("body").addClass("modal-open");
+            $(".menu-toggle").css("display", "none");
+          });
+
+          $(".close").click(function () {
+            $(".modal").css("display", "none");
+            $("body").removeClass("modal-open");
+            if (window.innerWidth <= 768) {
+              $(".menu-toggle").css("display", "block");
+            }
+          });
+
+          $(window).click(function (e) {
+            if ($(e.target).hasClass("modal")) {
+              $(".modal").css("display", "none");
+              $("body").removeClass("modal-open");
+              if (window.innerWidth <= 768) {
+                $(".menu-toggle").css("display", "block");
+              }
+            }
+          });
+          // Add your actual login/signup logic here.  This is just for showing/hiding modals.
+        });
+      });
+    </script>
+  </body>
+</html>
